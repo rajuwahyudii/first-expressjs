@@ -11,10 +11,10 @@ const myLogger = function (req, res, next) {
   app.use(myLogger)
 
 app.use(router)
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+// app.get('/', (req, res) => {
+//   res.send('Hello World!')
+// })
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+    console.log(`http://localhost:${port}`)
   })

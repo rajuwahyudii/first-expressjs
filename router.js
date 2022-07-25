@@ -1,10 +1,24 @@
 const express = require('express')
 const router = express.Router()
+const connection = require('./connection')
 
+router.get('/users', async (req, res) => {
+try{
+    if(connection.isConnected()){
+        const db = connection.db('db_latihan')
+        const users = await db.collection('nama').find().toArray()
+
+        res.send({data: users})
+    }
+}catch(err){
+// res.send({message: err.message || 'internal server error'})
+}
+
+} )
 router.get('/', (req, res) => {
     res.send('Hello World!')
   })
-  router.get('/user/:id', (req, res) => {
+router.get('/user/:id', (req, res) => {
       const id = req.params.id
       if(Number(id)===1){
           const user = {
@@ -25,7 +39,7 @@ router.get('/', (req, res) => {
     })
   
   
-    router.get('/user', (req,res) => {
+router.get('/user', (req,res) => {
         const name = req.query.name
         const age = req.query.age
         res.send(name + ' ' + age)
